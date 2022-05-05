@@ -1,7 +1,7 @@
 
 
     <div class="jumbotron">
-        <h1>PA03: Course Finder Fall20-Spr21 </h1>
+        <h1>Movie Finder </h1>
         <p></p>
     </div>
 
@@ -13,30 +13,30 @@
         the courses and create your schedule.
     </p>
     
-    <% if (true || loggedIn) {%>  
+    <% if (true) {%>  
         <form method="post" action="/courses/bySubject">
-            Show Courses by Subject: 
+            Show Movies by Title: 
               <input type="text" name="subject" 
                      placeholder="e.g. COSI">
             <input type="submit">
         </form>
         <br>
         <form method="post" action="/courses/byInst">
-            Show Courses by Instructor Email: 
+            Show Movies by Genre 
             <input type="text" name="email" 
                    placeholder="e.g. tjhickey">
             <input type="submit">
         </form>
         <br>
         <form method="post" action="/courses/byKeyWord">
-            Show Courses by Keyword: 
+            Show Movies by Keyword: 
               <input type="text" name="KeyWord" 
                      placeholder="e.g. Calculus">
             <input type="submit">
         </form>
 
         <br>
-        <a href="/schedule/show">Show Schedule</a>
+        
        
         
 

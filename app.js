@@ -34,7 +34,8 @@ const courses = require('./public/data/courses20-21.json')
 
 const mongoose = require( 'mongoose' );
 //const mongodb_URI = 'mongodb://localhost:27017/cs103a_todo'
-const mongodb_URI = 'mongodb+srv://cs_sj:BrandeisSpr22@cluster0.kgugl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+//const mongodb_URI = 'mongodb+srv://cs_sj:BrandeisSpr22@cluster0.kgugl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const mongodb_URI = 'mongodb+srv://gabriellepile2002:2002!Gabby@cluster0.s33io.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 //mongodb+srv://cs103a:<password>@cluster0.kgugl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 mongoose.connect( mongodb_URI, { useNewUrlParser: true, useUnifiedTopology: true } );
@@ -91,17 +92,17 @@ app.use(
 
 
 // here is the code which handles all /login /signin /logout routes
-const auth = require('./routes/auth');
-const { deflateSync } = require("zlib");
-app.use(auth)
+// const auth = require('./routes/auth');
+// const { deflateSync } = require("zlib");
+// app.use(auth)
 
-// middleware to test is the user is logged in, and if not, send them to the login page
-const isLoggedIn = (req,res,next) => {
-  if (res.locals.loggedIn) {
-    next()
-  }
-  else res.redirect('/login')
-}
+// // middleware to test is the user is logged in, and if not, send them to the login page
+// const isLoggedIn = (req,res,next) => {
+//   if (res.locals.loggedIn) {
+//     next()
+//   }
+//   else res.redirect('/login')
+// }
 
 // specify that the server should render the views/index.ejs page for the root path
 // and the index.ejs code will be wrapped in the views/layouts.ejs code which provides
@@ -119,22 +120,22 @@ app.get("/about", (req, res, next) => {
 /*
     ToDoList routes
 */
-app.get('/todo',
-  isLoggedIn,   // redirect to /login if user is not logged in
-  async (req,res,next) => {
-    try{
-      let userId = res.locals.user._id;  // get the user's id
-      let items = await ToDoItem.find({userId:userId}); // lookup the user's todo items
-      res.locals.items = items;  //make the items available in the view
-      res.render("toDo");  // render to the toDo page
-    } catch (e){
-      next(e);
-    }
-  }
-  )
+// app.get('/todo',
+//   isLoggedIn,   // redirect to /login if user is not logged in
+//   async (req,res,next) => {
+//     try{
+//       let userId = res.locals.user._id;  // get the user's id
+//       let items = await ToDoItem.find({userId:userId}); // lookup the user's todo items
+//       res.locals.items = items;  //make the items available in the view
+//       res.render("toDo");  // render to the toDo page
+//     } catch (e){
+//       next(e);
+//     }
+//   }
+//   )
 
   app.post('/todo/add',
-  isLoggedIn,
+  //isLoggedIn,
   async (req,res,next) => {
     try{
       const {title,description} = req.body; // get title and description from the body
@@ -151,7 +152,7 @@ app.get('/todo',
   )
 
   app.get("/todo/delete/:itemId",
-    isLoggedIn,
+    //isLoggedIn,
     async (req,res,next) => {
       try{
         const itemId=req.params.itemId; // get the id of the item to delete
@@ -164,7 +165,7 @@ app.get('/todo',
   )
 
   app.get("/todo/completed/:value/:itemId",
-  isLoggedIn,
+  //isLoggedIn,
   async (req,res,next) => {
     try{
       const itemId=req.params.itemId; // get the id of the item to delete
@@ -324,7 +325,7 @@ app.post('/courses/byInst',
   }
 )
 
-app.use(isLoggedIn)
+//app.use(isLoggedIn)
 
 app.get('/addCourse/:courseId',
   // add a course to the user's schedule
