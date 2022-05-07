@@ -4,8 +4,7 @@ In ordre to download my project, you are go to my git hub repository and clone i
 
 Link to my zoom video explaining my project:
 
-Topic: Gabrielle Pile's Personal Meeting Room
-Date: May 7, 2022 10:33 AM Eastern Time (US and Canada)
+
 
 MEETING RECORDING:
 https://brandeis.zoom.us/rec/share/hhiwiUNzkO8fhwzoxND9tRpFF_a30Q9yg4SHZAoc0BZhy3YEFW6bEeUzapWRUF6N.Qqtco3TtG2banIM2?startTime=1651953766000
