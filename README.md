@@ -7,8 +7,8 @@ Link to my zoom video explaining my project:
 Topic: Gabrielle Pile's Personal Meeting Room
 Date: May 7, 2022 10:33 AM Eastern Time (US and Canada)
 
-Meeting Recording:
-https://brandeis.zoom.us/rec/share/2WlecIFypQH80UIAXTl8t5w7I_onQtyKxdAchy5mwHWCFpH7eaJUONJqiBY8z8Dq.C4xY8A3MEgGNATOe
+MEETING RECORDING:
+https://brandeis.zoom.us/rec/share/hhiwiUNzkO8fhwzoxND9tRpFF_a30Q9yg4SHZAoc0BZhy3YEFW6bEeUzapWRUF6N.Qqtco3TtG2banIM2?startTime=1651953766000
 
 
 A screen shot of my home page
