@@ -6,26 +6,16 @@ const Mixed = Schema.Types.Mixed;
 
 
 var courseSchema = Schema( {
-    limit: Number,
-    times: Mixed,
-    strTimes: [String],
-    enrolled: Number,
-    details: String,
-    type: String,
-    status_text: String,
-    section: String,
-    waiting: Number,
-    instructor: Mixed,
-    coinstructors: Mixed,
-    code: Mixed,
-    subject: String,
-    coursenum: String,
-    num: Number,
-    suffix: String,
-    name: String,
-    independent_study: Boolean,
-    term: Number,
-    description: String,
+   id: Number,
+   title: String,
+   year: String,
+   runtime: String,
+   genres: [String],
+   director: String,
+   actors: String,
+   plot: String,
+   posterUrl: String,
+
 } );
 
 module.exports = mongoose.model( 'Course', courseSchema );

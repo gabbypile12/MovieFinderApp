@@ -25,7 +25,8 @@ const Schedule = require('./models/Schedule')
 // *********************************************************** //
 //  Loading JSON datasets
 // *********************************************************** //
-const courses = require('./public/data/courses20-21.json')
+//const courses = require('./public/data/courses20-21.json')
+const courses = require('./public/data/moviesdatabase.json')
 
 
 // *********************************************************** //
@@ -92,17 +93,17 @@ app.use(
 
 
 // here is the code which handles all /login /signin /logout routes
-// const auth = require('./routes/auth');
-// const { deflateSync } = require("zlib");
-// app.use(auth)
+const auth = require('./routes/auth');
+const { deflateSync } = require("zlib");
+app.use(auth)
 
-// // middleware to test is the user is logged in, and if not, send them to the login page
-// const isLoggedIn = (req,res,next) => {
-//   if (res.locals.loggedIn) {
-//     next()
-//   }
-//   else res.redirect('/login')
-// }
+// middleware to test is the user is logged in, and if not, send them to the login page
+const isLoggedIn = (req,res,next) => {
+  if (res.locals.loggedIn) {
+    next()
+  }
+  else res.redirect('/login')
+}
 
 // specify that the server should render the views/index.ejs page for the root path
 // and the index.ejs code will be wrapped in the views/layouts.ejs code which provides
@@ -120,22 +121,22 @@ app.get("/about", (req, res, next) => {
 /*
     ToDoList routes
 */
-// app.get('/todo',
-//   isLoggedIn,   // redirect to /login if user is not logged in
-//   async (req,res,next) => {
-//     try{
-//       let userId = res.locals.user._id;  // get the user's id
-//       let items = await ToDoItem.find({userId:userId}); // lookup the user's todo items
-//       res.locals.items = items;  //make the items available in the view
-//       res.render("toDo");  // render to the toDo page
-//     } catch (e){
-//       next(e);
-//     }
-//   }
-//   )
+app.get('/todo',
+  isLoggedIn,   // redirect to /login if user is not logged in
+  async (req,res,next) => {
+    try{
+      let userId = res.locals.user._id;  // get the user's id
+      let items = await ToDoItem.find({userId:userId}); // lookup the user's todo items
+      res.locals.items = items;  //make the items available in the view
+      res.render("toDo");  // render to the toDo page
+    } catch (e){
+      next(e);
+    }
+  }
+  )
 
   app.post('/todo/add',
-  //isLoggedIn,
+  isLoggedIn,
   async (req,res,next) => {
     try{
       const {title,description} = req.body; // get title and description from the body
@@ -152,7 +153,7 @@ app.get("/about", (req, res, next) => {
   )
 
   app.get("/todo/delete/:itemId",
-    //isLoggedIn,
+    isLoggedIn,
     async (req,res,next) => {
       try{
         const itemId=req.params.itemId; // get the id of the item to delete
@@ -165,7 +166,7 @@ app.get("/about", (req, res, next) => {
   )
 
   app.get("/todo/completed/:value/:itemId",
-  //isLoggedIn,
+  isLoggedIn,
   async (req,res,next) => {
     try{
       const itemId=req.params.itemId; // get the id of the item to delete
@@ -239,13 +240,8 @@ app.get('/upsertDB',
   async (req,res,next) => {
     //await Course.deleteMany({})
     for (course of courses){
-      const {subject,coursenum,section,term}=course;
-      const num = getNum(coursenum);
-      const strTime = strTimes
-      course.strTimes = strTime
-
-      course.suffix = coursenum.slice(num.length)
-      await Course.findOneAndUpdate({subject,coursenum,section,term},course,{upsert:true})
+      const {id,title,year,plot}=course;
+      await Course.findOneAndUpdate({id,title,year,plot},course,{upsert:true})
     }
     const num = await Course.find({}).count();
     res.send("data uploaded: "+num)
@@ -256,12 +252,19 @@ app.get('/upsertDB',
 app.post('/courses/bySubject',
   // show list of courses in a given subject
   async (req,res,next) => {
-    const {subject} = req.body;
-    const courses = await Course.find({subject:subject,independent_study:false}).sort({term:1,num:1,section:1})
-    
+    const {title} = req.body;
+    const courses = await Course.find({title:title})
     res.locals.courses = courses
-    //res.locals.times2str = times2str
-    //res.json(courses)
+    res.render('courselist')
+  }
+)
+
+app.post('/courses/byInst',
+  // show courses taught by a faculty send from a form
+  async (req,res,next) => {
+    const {year} = req.body;
+    const courses = await Course.find({year:year})
+    res.locals.courses = courses
     res.render('courselist')
   }
 )
@@ -271,10 +274,8 @@ app.post('/courses/byKeyWord',
   async (req,res,next) => {
     const KeyWord = req.body.KeyWord;
    // const courses = await Course.find({name:KeyWord,independent_study:false}).sort({term:1,num:1,section:1})
-    const courses = await Course.find({name:{$regex:KeyWord , $options:'i'}}).sort({term:1,num:1,section:1})
+    const courses = await Course.find({plot:{$regex:KeyWord , $options:'i'}})
     res.locals.courses = courses
-    //res.locals.times2str = times2str                                                                        
-    //res.json(courses)
     res.render('courselist')
   }
 )
@@ -302,30 +303,20 @@ app.get('/courses/show/:courseId',
   }
 )
 
-app.get('/courses/byInst/:email',
-  // show a list of all courses taught by a given faculty
-  async (req,res,next) => {
-    const email = req.params.email+"@brandeis.edu";
-    const courses = await Course.find({instructor:email,independent_study:false})
-    //res.json(courses)
-    res.locals.courses = courses
-    res.render('courselist')
-  } 
-)
+// app.get('/courses/byInst/:email',
+//   // show a list of all courses taught by a given faculty
+//   async (req,res,next) => {
+//     const email = req.params.email+"@brandeis.edu";
+//     const courses = await Course.find({instructor:email,independent_study:false})
+//     //res.json(courses)
+//     res.locals.courses = courses
+//     res.render('courselist')
+//   } 
+// )
 
-app.post('/courses/byInst',
-  // show courses taught by a faculty send from a form
-  async (req,res,next) => {
-    const email = req.body.email+"@brandeis.edu";
-    const courses = await Course.find({instructor:email,independent_study:false}).sort({term:1,num:1,section:1})
-    //res.json(courses)
-    res.locals.courses = courses
-    //res.locals.times2str = times2str
-    res.render('courselist')
-  }
-)
 
-//app.use(isLoggedIn)
+
+app.use(isLoggedIn)
 
 app.get('/addCourse/:courseId',
   // add a course to the user's schedule

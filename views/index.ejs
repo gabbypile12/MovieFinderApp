@@ -6,32 +6,32 @@
     </div>
 
     <p class="p-3 m-3 border border-primary bg-light">
-        The goal of this assignment is to write an app that will let
-        students pick their courses for the year. Since we don't have 
-        the data for this year (due to workday issues), we will use the 
+        This is a movie finder website. It allows its user to 
+        find movies from the from the years from the 1980's
+        to the early the early 2000's. A user can  
         2020-2021 Academic year data. You must signup or login to see
         the courses and create your schedule.
     </p>
     
-    <% if (true) {%>  
+    <% if (true || loggedIn) {%>  
         <form method="post" action="/courses/bySubject">
             Show Movies by Title: 
-              <input type="text" name="subject" 
-                     placeholder="e.g. COSI">
+              <input type="text" name="title" 
+                     placeholder="e.g. Beetlejuice">
             <input type="submit">
         </form>
         <br>
         <form method="post" action="/courses/byInst">
-            Show Movies by Genre 
-            <input type="text" name="email" 
-                   placeholder="e.g. tjhickey">
+            Show Movies by Year: 
+            <input type="text" name="year" 
+                   placeholder="e.g. 2002">
             <input type="submit">
         </form>
         <br>
         <form method="post" action="/courses/byKeyWord">
             Show Movies by Keyword: 
               <input type="text" name="KeyWord" 
-                     placeholder="e.g. Calculus">
+                     placeholder="e.g. war">
             <input type="submit">
         </form>
 

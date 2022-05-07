@@ -1,15 +1,14 @@
-<h1>The courses are</h1>
-Here we want a ul list with the instructor, coursenum, title, term
+<h1>The Movies are</h1>
 <hr>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>ID #</th>
-            <th>Movie Title</th>
-            <th>Genre</th>
-            <th>Plot</th>
+            <th>Move Title</th>
+            <th>Genres</th>
+            <th>Year</th>
             <th>Actors</th>
-            <th>Directors</th>
+            <th>Plot</th>
         </tr>
     </thead>
     <tbody></tbody>
@@ -21,37 +20,26 @@ Here we want a ul list with the instructor, coursenum, title, term
          %>
         
       <tr class="mb-2"> 
-        <td><%= semester[term%10] %></td>
         <td>
-            <a href="/courses/show/<%=course._id %>">
-            <%=  course['subject'] %>
-            <%=  course['coursenum'] %>  
-            (Section <%=  course['section'] %>) 
-
-            </a>
+            <strong><%= course.id %></strong>
         </td>
 
         <td>
-            <strong><%= course.name %></strong>
+            <strong><%= course.title %></strong>
         </td>
         <td>
-
-        </td>
-
-        <td>
-            <%=course.enrolled %>/<%=course.limit || 999 %>/<%= course.waiting %>
+            <strong><%= course.genres %></strong>
         </td>
 
         <td>
-        <% for (t of course.strTimes){%> 
-            <%= t %> <br> 
-        <%} %>
+            <strong><%= course.year %></strong>
         </td>
-         <!-- <%= JSON.stringify(course.times) %> <br> -->
-        
-
+            
         <td>
-          <%= inst[0]+" "+inst[1]%> <br> <%= " ("+inst[2]+")" %>
+            <strong><%= course.actors %></strong>
+        </td>
+        <td>
+            <strong><%= course.plot %></strong>
         </td>
     </tr>
     <% } %>
