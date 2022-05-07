@@ -11,9 +11,10 @@ A screen shot after searching for the movie Beetlejuice
 
 A screen shot after searching for the movies in the year 2002
 
-![Home screen](/images/screenshotkeywordwar.png)
+![Home screen](/images/screenshotof2002.png)
 
 A screen shot after searching for the movies with war in the description
 
-![Home screen](/images/screenshotof2002.png)
+
+![Home screen](/images/screenshotkeywordwar.png)
 
