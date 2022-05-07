@@ -11,7 +11,7 @@ MEETING RECORDING:
 https://brandeis.zoom.us/rec/share/hhiwiUNzkO8fhwzoxND9tRpFF_a30Q9yg4SHZAoc0BZhy3YEFW6bEeUzapWRUF6N.Qqtco3TtG2banIM2?startTime=1651953766000
 
 
-A screen shot of my home page
+A screen shot of my home PAGE
 
 ![Home screen](/images/HomeScreenOfWebpage.png)
 
